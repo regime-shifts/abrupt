@@ -1,13 +1,13 @@
 Package: abrupt
-Title: What the Package Does (One Line, Title Case)
+Title: Methods for detecting abrupt change in temporal, spatial, and spatiotemporal data series
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "First",
-           family = "Last",
+    person(given = "Gavin",
+           family = "Simpson",
            role = c("aut", "cre"),
-           email = "first.last@example.com",
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+           email = "ucfagls@example.com",
+           comment = c(ORCID = "0000-0002-9084-8413"))
+Description: A consistent tidy interface to methods and models for detecting aburpt change and regime shifts in temporal, spatial, and spatiotemporal data series.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
