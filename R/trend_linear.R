@@ -38,7 +38,8 @@
 ##'   values for the linear trend.
 ##' @param sampling_distribution function; a random number generating function,
 ##'   which takes as it's first argument the number of observations to sample.
-##'   The default if nothing is supplied is [stats::rnorm()].
+##'   The second argument should be the expected value. The default, if nothing
+##'   is supplied, is [stats::rnorm()].
 ##' @param ... additional arguments that will be passed to
 ##'   `sampling_distribution`.
 ##' 
@@ -65,7 +66,7 @@
     out <- linear_trend(t = t, start_value = start_value, end_value = end_value)
 
     ## generate noisy values from trend
-    out <- add_column(out, y = out$trend + fun(nt, ...))
+    out <- add_column(out, y = fun(nt, out$trend))
     attr(out, "rng_state") <- rng_state
     out
 }
