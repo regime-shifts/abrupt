@@ -67,7 +67,7 @@
 ##'   which takes as it's first argument the number of observations to sample.
 ##'   The second argument should be the expected value. The default, if nothing
 ##'   is supplied, is [stats::rnorm()].
-##' @param seed 
+##' @param seed numeric; a seed for the simulation.
 ##' @param ... additional arguments that will be passed to
 ##'   `sampling_distribution`.
 ##'

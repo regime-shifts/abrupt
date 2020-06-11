@@ -3,6 +3,7 @@
 ##' @param data ToDo
 ##'
 ##' @importFrom minpack.lm nlsLM
+##' @importFrom stats AIC
 `rickerfit` <- function (data){
     ## create an initial estimate of k to aide model convergence
     kest <- mean(data$Nt)

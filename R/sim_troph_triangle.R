@@ -17,6 +17,7 @@
 ##' @importFrom deSolve ode
 ##' @importFrom dplyr mutate left_join
 ##' @importFrom tidyr gather
+##' @importFrom stats rlnorm
 sim_troph_triangle <- function(time_out, 
                                n_steps, 
                                measurement_sigma = c(0,0,0),
