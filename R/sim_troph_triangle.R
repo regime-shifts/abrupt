@@ -24,6 +24,35 @@ create_driver_function <- function(change_times,
   fun
 }
 
+random_var_matrix <- function(n_sp,diag_min = 0, diag_max =1, off_diag_min = -1,
+                              frac_connected = 0.25, 
+                              off_diag_max = 1, check_eigen = TRUE){
+  
+  if(!check_eigen){
+    n_iter = 1
+    mat <- matrix(runif(n_sp^2, 
+                        min = off_diag_min, 
+                        max = off_diag_max) *
+                    rbinom(n_sp^2,size = 1,prob = frac_connected),
+                  nrow = n_sp)
+    diag(mat) = runif(n_sp,diag_min,diag_max)
+  } else{
+    n_iter = 0
+    while(check_eigen){
+      n_iter = n_iter + 1
+      mat <- matrix(runif(n_sp^2, 
+                          min = off_diag_min, 
+                          max = off_diag_max) *
+                      rbinom(n_sp^2,size = 1,prob = frac_connected),
+                    nrow = n_sp)
+      diag(mat) = runif(n_sp,diag_min,diag_max)
+      
+      if(max(abs(eigen(mat)$value))<1) check_eigen = FALSE
+    }
+  }
+  attr(mat, "n_iter") = n_iter
+  return(mat)
+}
 
 
 sim_troph_triangle <- function(time_out = 100, 
@@ -113,5 +142,88 @@ sim_troph_triangle <- function(time_out = 100,
   return(simulation)
   
 }
+
+
+sim_var <- function(n_steps = 50, 
+                    n_species = 10,
+                    regime_change_points = c(),
+                    regime_means = "random",
+                    regime_coefs = "random",
+                    regime_vars  = 1
+                    ) {
   
+  n_regimes <-  length(regime_change_points)+1
+  if(!(regime_means[[1]][[1]]=="random" |(is.list(regime_means)&length(regime_means) == n_regimes)|length(regime_means)==1|length(regime_means)==n_species)){
+    stop("regime_means should be one of: 'random', a list of vectors equal to the number of regime change points plus 1, a single number, or a vector of length n_species")
+  }
+  
+  if(!(regime_coefs[[1]][[1]]=="random" |(is.list(regime_coefs)&length(regime_coefs) == n_regimes)|length(regime_coefs)==1|length(regime_coefs)==n_species^2)){
+    stop("regime_coefs should be one of: 'random', a list of matrices equal to the number of regime change points plus 1, a single number, or a matrix of length n_species")
+  }
+  
+  if(!((is.list(regime_vars)&length(regime_vars) == n_regimes)|length(regime_vars)==1|length(regime_vars)==n_species)){
+    stop("regime_vars should be one of:  a list of vectors equal to the number of regime change points plus 1, a single number, or a vector of length n_species")
+  }
+  
+  regime_change_points <- c(0, sort(regime_change_points), n_steps+1)
+  
+  if(regime_means[1]=="random"){
+    regime_means <-  list()
+    for(i in 1:n_regimes){
+      regime_means[[i]] <-  runif(n_species)
+    }
+  } else if(!is.list(regime_means)){
+    new_means <- list()
+    for(i in 1:n_regimes){
+      new_means[[i]] <- regime_means
+    }
+    regime_means <- new_means
+  }
+  
+  if(regime_coefs[1]=="random"){
+    regime_coefs <-  list()
+    for(i in 1:n_regimes){
+      regime_coefs[[i]] <-  random_var_matrix(n_species)
+    }
+  } else if(!is.list(regime_coefs)){
+    new_coefs <- list()
+    for(i in 1:n_regimes){
+      new_coefs[[i]] <- regime_coefs
+    }
+    regime_coefs <- new_coefs
+  }
+  
+  if(!is.list(regime_vars)){
+    new_vars <- list()
+    for(i in 1:n_regimes){
+      new_vars[[i]] <- regime_vars
+    }
+    regime_vars <- new_vars
+  }
+  
+  
+  
+  
+  
+  out_data <- matrix(nrow = n_steps, ncol = n_species)
+  out_data[1,] <- regime_means[[1]]
+  regime <- 1
+  
+  for(i in 2:n_steps){
+    if(i>regime_change_points[regime+1]) regime = regime +1
+    out_data[i,] <- regime_means[[regime]] + regime_coefs[[regime]]%*%(out_data[i-1,]-regime_means[[regime]]) + rnorm(n_species)
+  }
+  
+  out_data <- as.data.frame(out_data)
+  out_data <- dplyr::mutate(out_data, 
+                     time = 1:n_steps)
+  out_data <- tidyr::gather(out_data,species,abundance,-time)
+  
+  out_list <- list(simulation = out_data,
+                   n_regimes = n_regimes,
+                   regime_change_points = regime_change_points,
+                   regime_means = regime_means,
+                   regime_coefs = regime_coefs)
+  out_list
+}
   
