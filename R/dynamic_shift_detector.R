@@ -39,32 +39,34 @@ AICcorrection<-function(data, breaks){
 #load minpack.lm
 #this is my prefered nonlinear package- fewer convergence issues.
 #we'll want to use its nlsLM function to fit the Ricker equation.
-library(minpack.lm)
+## library(minpack.lm)
 
 #create function that fits the ricker model
 
-rickerfit<-function (data){
-  #create an initial estimate of k to aide model convergence
-  kest<-mean(data$Nt)
-  #supress warnings about failed convergence in oddball fits- these models won't be favoured by AIC anyway
-  options(warn=-1)
-  #fit the model
-  ricker.model<-tryCatch(nlsLM(Nt1~ Nt*exp(r*(1- Nt/k)), start=list(r=1.5, k=kest), data=data), error=function(e) NULL)
-  #What outputs do we need from each run? AIC, r and k, and their resepective errors.
-  #we'll want to create a vecor with this information in it so we can use this information later
-  if(is.list(ricker.model)){
-    output<-c(AIC(ricker.model), #AIC
-              summary(ricker.model)$coefficients[1,1], # r
-              summary(ricker.model)$coefficients[1,2], # se for r
-              summary(ricker.model)$coefficients[2,1], # k
-              summary(ricker.model)$coefficients[2,2]) # se for k
-  }else{
-    output<-c(100000000, 0, 0, 0, 0)#if the model fails to converge, give it an an arbitrarily high but finite AIC
-  }
+## use the rickerfit() in ricker-model.R
+
+## rickerfit<-function (data){
+##   #create an initial estimate of k to aide model convergence
+##   kest<-mean(data$Nt)
+##   #supress warnings about failed convergence in oddball fits- these models won't be favoured by AIC anyway
+##   options(warn=-1)
+##   #fit the model
+##   ricker.model<-tryCatch(nlsLM(Nt1~ Nt*exp(r*(1- Nt/k)), start=list(r=1.5, k=kest), data=data), error=function(e) NULL)
+##   #What outputs do we need from each run? AIC, r and k, and their resepective errors.
+##   #we'll want to create a vecor with this information in it so we can use this information later
+##   if(is.list(ricker.model)){
+##     output<-c(AIC(ricker.model), #AIC
+##               summary(ricker.model)$coefficients[1,1], # r
+##               summary(ricker.model)$coefficients[1,2], # se for r
+##               summary(ricker.model)$coefficients[2,1], # k
+##               summary(ricker.model)$coefficients[2,2]) # se for k
+##   }else{
+##     output<-c(100000000, 0, 0, 0, 0)#if the model fails to converge, give it an an arbitrarily high but finite AIC
+##   }
   
-  options(warn=0)#turn warnings back on
-  return(output)
-}
+##   options(warn=0)#turn warnings back on
+##   return(output)
+## }
 
 
 
