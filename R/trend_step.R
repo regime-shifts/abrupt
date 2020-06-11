@@ -20,7 +20,7 @@
 ##' sims
 ##'
 ##' library("ggplot2")
-##' ggplot(sims, aes(x = time, y = trend)) +
+##' ggplot(sims, aes(x = t y = trend)) +
 ##'   geom_step()
 ##' \dontshow{options(op)}
 `step_trend` <- function(t, change_points, means, ...) {
@@ -90,7 +90,7 @@
 ##' sims
 ##'
 ##' library("ggplot2")
-##' ggplot(sims, aes(x = time, y = y)) +
+##' ggplot(sims, aes(x = t, y = y)) +
 ##'   geom_point() +
 ##'   geom_step(aes(y = trend))
 ##' \dontshow{options(op)}
