@@ -1,14 +1,40 @@
+create_driver_function <- function(change_times,
+                                   parm_values, 
+                                   interpolation = c("linear","constant","spline")){
+  interpolation <- match.arg(interpolation)
+  if(length(change_times)+1 != length(parm_values)){
+    stop("parm_values should be a vector 1 longer than change_times to account for the initial regime")
+  }
+  stopifnot(is.numeric(change_times))
+  stopifnot(is.numeric(parm_values))
+  
+  interp_values = c(0, change_times)
+  
+  if(interpolation=="spline"){
+    fun <- stats::splinefun(x= interp_values, 
+                            y = parm_values,
+                            method = "natural")
+  }else{
+    fun <- stats::approxfun(x = interp_values,
+                            y= parm_values,
+                            rule = 2,
+                            method = interpolation)
+  }
+  
+  fun
+}
 
 
-sim_troph_triangle <- function(time_out, 
-                               n_steps, 
+
+sim_troph_triangle <- function(time_out = 100, 
+                               n_steps = c(100), 
                                measurement_sigma = c(0,0,0),
-                               harvest_start = 0, 
-                               harvest_end = 0.25, 
-                               harvest_shape = 0,
-                               pred_overlap_start = 1,
-                               pred_overlap_end   = 1,
-                               pred_overlap_shape = 0
+                               harvest_rates = create_driver_function(change_times = 50,
+                                                                        parm_values = c(0,0.25),
+                                                                        interpolation = "constant"),
+                               pred_overlap = create_driver_function(change_times = 50,
+                                                                     parm_values = c(1,1),
+                                                                     interpolation = "constant")
                                ) {
   
   #Describes the basic dynamic system 
@@ -20,14 +46,12 @@ sim_troph_triangle <- function(time_out,
   model_parameters <- list(
     T_mat = 5,    #length of time it takes a juvenile predator to mature to an adult
     m = 0.025,    #mortality rate of adult and juvenile fish
-    s = 0.05,     #The stocking rate (amount of new fish being added from outside) for adult predators
+    s = 0.1,     #The stocking rate (amount of new fish being added from outside) for adult predators
     
-    e_start = harvest_start,
-    e_end   = harvest_end,
-    
-    a_PF_start = pred_overlap_start,
-    a_PF_end   = pred_overlap_end,
-    
+    harvest_rates = harvest_rates,
+    pred_overlap = pred_overlap,
+
+    a_PF_base = 0.1, 
     
     f = 0.5,      #amount of new offspring for each adult predator per unit time
     a_PJ  = 0.05, #Cannibalism rate of adult predators on juveniles
@@ -36,7 +60,7 @@ sim_troph_triangle <- function(time_out,
     r = 0.25,     #population growth rate of forage fish at low densities
     b = 0.005,    #density-dependence term for the forage fish
     a_PF_start = 0.1,   #attack rate of adult predators on forage fish when species fully overlap
-    d = 0.5,       #Stocking rate for forage fish
+    d = 1,       #Stocking rate for forage fish
     
     max_time = time_out
   )
@@ -51,8 +75,8 @@ sim_troph_triangle <- function(time_out,
     forage = y["forage"]
     juv = y["juv"]
     
-    e <-  parms[["e_start"]] + (parms[["e_end"]]-parms[["e_start"]])*t/parms[["max_time"]]
-    a_PF <-  parms[["a_PF_start"]] + (parms[["a_PF_end"]]-parms[["a_PF_start"]])*t/parms[["max_time"]]
+    e <-  parms$harvest_rates(t)
+    a_PF <-  parms$pred_overlap(t)*parms[["a_PF_base"]]
     
     #This next code calculates the derivatives at each point in time. 
     #the with(x,...) function here make the model parameters available by name
@@ -82,8 +106,8 @@ sim_troph_triangle <- function(time_out,
   simulation <- gather(simulation,key = species, value = abundance_true, adult, juv,forage)
   simulation <- left_join(simulation, noisy_obs)
   simulation <- mutate(simulation,
-                       exploitation_rate = harvest_start + (harvest_end-harvest_start)*time/time_out,
-                       predator_prey_attack = pred_overlap_start + (pred_overlap_end-pred_overlap_start)*time/time_out
+                       exploitation_rate = harvest_rates(time),
+                       predator_prey_attack = model_parameters[["a_PF_base"]]*pred_overlap(time)
   )
   
   return(simulation)
