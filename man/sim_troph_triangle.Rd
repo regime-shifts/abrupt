@@ -17,23 +17,23 @@ sim_troph_triangle(
 )
 }
 \arguments{
-\item{time_out}{}
+\item{time_out}{ToDo}
 
-\item{n_steps}{}
+\item{n_steps}{ToDo}
 
-\item{measurement_sigma}{}
+\item{measurement_sigma}{ToDo}
 
-\item{harvest_start}{}
+\item{harvest_start}{ToDo}
 
-\item{harvest_end}{}
+\item{harvest_end}{ToDo}
 
-\item{harvest_shape}{}
+\item{harvest_shape}{ToDo}
 
-\item{pred_overlap_start}{}
+\item{pred_overlap_start}{ToDo}
 
-\item{pred_overlap_end}{}
+\item{pred_overlap_end}{ToDo}
 
-\item{pred_overlap_shape}{}
+\item{pred_overlap_shape}{ToDo}
 }
 \description{
 Trophic triangle model
