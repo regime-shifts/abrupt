@@ -44,7 +44,7 @@ sims <- simulate_step_trend(1:100, change_points = c(25, 75),
 sims
 
 library("ggplot2")
-ggplot(sims, aes(x = time, y = y)) +
+ggplot(sims, aes(x = t, y = y)) +
   geom_point() +
   geom_step(aes(y = trend))
 \dontshow{options(op)}
