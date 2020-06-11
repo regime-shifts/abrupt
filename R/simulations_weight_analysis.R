@@ -2,7 +2,7 @@
 #and then determining if breakweights function correctly determines these parameters
 
 #get the regime shift detector functions into memory
-source("dynamic_shift_detector.R")
+## source("dynamic_shift_detector.R")
 
 #create a function that will make fake data based on specified parameters
 #assume change, noise is given in percent (0-100) scale, as is change to r, k
