@@ -9,10 +9,12 @@ step_trend(t, change_points, means, ...)
 \arguments{
 \item{t}{numeric; vector of time points.}
 
-\item{...}{other arguments. Ignored here.}
+\item{change_points}{numeric; vector of change points, within \code{t}}
 
-\item{start_value, end_value}{numeric vectors of length 1; the start and end
-values for the linear trend.}
+\item{means}{numeric; vector of means for the regimes implied by
+\code{change_points}. Must be of length \code{length(change_points) + 1}.}
+
+\item{...}{other arguments. Ignored here.}
 }
 \description{
 Step change trend response model
@@ -22,6 +24,11 @@ Step change trend response model
 set.seed(1)
 op <- options(digits = 3, cli.unicode = FALSE)
 }
-step_trend(1:100, change_points = c(25, 75), means = c(2, 8, 4))
+sims <- step_trend(1:100, change_points = c(25, 75), means = c(2, 8, 4))
+sims
+
+library("ggplot2")
+ggplot(sims, aes(x = time, y = trend)) +
+  geom_step()
 \dontshow{options(op)}
 }

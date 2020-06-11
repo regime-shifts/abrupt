@@ -1,19 +1,27 @@
 ##' Step change trend response model
 ##'
 ##' @param t numeric; vector of time points. 
-##' @param start_value,end_value numeric vectors of length 1; the start and end
-##'   values for the linear trend.
+##' @param change_points numeric; vector of change points, within `t`
+##' @param means numeric; vector of means for the regimes implied by
+##'   `change_points`. Must be of length `length(change_points) + 1`.
 ##' @param ... other arguments. Ignored here.
-##'
+##' 
 ##' @importFrom tibble tibble
 ##' @importFrom stats approx
 ##'
+##' @export
+##' 
 ##' @examples
 ##' \dontshow{
 ##' set.seed(1)
 ##' op <- options(digits = 3, cli.unicode = FALSE)
 ##' }
-##' step_trend(1:100, change_points = c(25, 75), means = c(2, 8, 4))
+##' sims <- step_trend(1:100, change_points = c(25, 75), means = c(2, 8, 4))
+##' sims
+##'
+##' library("ggplot2")
+##' ggplot(sims, aes(x = time, y = trend)) +
+##'   geom_step()
 ##' \dontshow{options(op)}
 `step_trend` <- function(t, change_points, means, ...) {
     ## is t in order?
@@ -51,4 +59,61 @@
 
     ## arrange in a tibble
     tibble(time = t, trend = trend)
+}
+
+##' Simulate data from a linear trend model
+##'
+##' @param sampling_distribution function; a random number generating function,
+##'   which takes as it's first argument the number of observations to sample.
+##'   The second argument should be the expected value. The default, if nothing
+##'   is supplied, is [stats::rnorm()].
+##' @param seed 
+##' @param ... additional arguments that will be passed to
+##'   `sampling_distribution`.
+##'
+##' @inheritParams step_trend
+##' 
+##' @importFrom stats approx
+##' @importFrom tibble add_column
+##'
+##' @export
+##'
+##' @examples
+##' \dontshow{
+##' set.seed(1)
+##' op <- options(digits = 3, cli.unicode = FALSE)
+##' }
+##' sims <- simulate_step_trend(1:100, change_points = c(25, 75),
+##'                             means = c(2, 8, 4))
+##' sims
+##'
+##' library("ggplot2")
+##' ggplot(sims, aes(x = time, y = y)) +
+##'   geom_point() +
+##'   geom_step(aes(y = trend))
+##' \dontshow{options(op)}
+`simulate_step_trend` <- function(t, change_points, means,
+                                  sampling_distribution = NULL, seed = NULL,
+                                  ...) {
+    ## initialise the RNG, possibly with the user-supplied seed
+    rng_state <- seed_rng(seed = seed)
+    ## arrange for RNG state to be reset upon exit from function
+    on.exit(assign(".Random.seed", rng_state$initial_state, envir = .GlobalEnv))
+
+    ## match the sampling_distribution to a function
+    fun <- if (is.null(sampling_distribution)) {
+        stats::rnorm # use rnorm() for the default
+    } else {
+        match.fun(sampling_distribution)
+    }
+    
+    nt <- length(t) # length of series
+
+    ## generate linear trend
+    out <- step_trend(t = t, change_points = change_points, means = means)
+
+    ## generate noisy values from trend
+    out <- add_column(out, y = fun(nt, out$trend))
+    attr(out, "rng_state") <- rng_state
+    out
 }
