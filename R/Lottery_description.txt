@@ -1,0 +1,61 @@
+
+Implementation of the lottery community dynamics as in Ramiadantsoa et al. (2019). 
+The dynamics is generally used for sessile organisms and is driven by two processes: death and recruitment. Death vacates a site (not to be confused with cells below) which are immediately colonized. Colonization is a lottery based on relative propagules available for each species. The lottery differs from classical lottery (Chesson and Warner 1981) by including density-dependence which creates alternative stable states.
+The landscape consists of grid cells. 
+
+The current implementation only works for a neutral community, i.e., demographic parameters are the same for all species.
+Coexistence of the species in the lottery model is driven by with storage effect thus the model has to include variability.  
+Lottery model would be appropriate to investigate abrupt changes in noise-dominated system 
+
+Two types of abrupt change are possible:
+	- Driver-induced transition caused by abrupt changes in driver parameters (e.g., survival probability). Linear or other transitions are not yet implemented.
+	- Noise-induced transition (flickering) caused by high magnitude in environmental stochasticity (strong density-dependence is required for for alternative stable states to exist)
+
+The differences with the implementation in Ramiadantsoa et a. (2019) are 
+ - the landscape is squared and wrapped as a torus (no boundary effect)
+ - parameters can change with time
+
+
+Input variables:
+
+- nsp: Number of species in the community
+
+- time: Simulation time (number of time steps)
+
+- size: Length of the side of the square landscape (the total number of cells are size * size)
+
+- param: set of "demographic" parameters as a data.frame and should include the following
+ 1 - b: mean recruitment
+ 2 - u: baseline survival probability
+ 3 - s: strength of density-dependence in the survival
+ 4 - d: disperal (proportion of propagules dispersing outside the source cell)
+ 5 - sb: standard deviation of the local component (at cell level) of the recruitment 
+ 6 - sT: total standard deviation of recruitment (composed of sb and sg)
+ 7 - rho: spatial autocorrelation (sT^2  =  rho^2 sg^2 + (1-r)^2 sb^2)
+
+- seed: Seed used for the replicate
+
+- driver: information on the timing and magnitude of change in the demographic parameters as data.frame. So far, only one abrupt change is implemenented, multiple changes and linear change can be implemented easily. We allow three parameters to change: survival probability (u), strength of density-dependence (s), and total standard deviation (sT). The input parameters represent relative change.  
+ 1 - rt: relative timing of each change (e.g., 0.25 means changes  occurs in the after the first quarter of the simulation time) 
+ 2 - ru: relative change in survival probability (should between 0 and 1)  
+ 3 - rs: relative change in the strenght of density-dependence (should be between 0 and 1)
+ 4 - rsT: relative change in the standard deviation of environmental variability (non-negative but should not be too large)
+
+
+ Outputs (as a list)
+ - sim_param: all parameters used in the model
+ - sim_output: a four-dimensional array. The first dimension contains species ID, the second and third dimensions are cell position, the fourth dimension is time. 
+
+ A dirty code is provided as an example to simulate the code and visualize the community dynamics
+
+
+
+ References:
+
+ - Ramiadantsoa, T., Stegner, M. A., Williams, J. W., & Ives, A. R. (2019). The potential role of intrinsic processes in generating abrupt and quasi‐synchronous tree declines during the Holocene. Ecology, 100(2), e02579.
+
+ - Chesson, P. L., & Warner, R. R. (1981). Environmental variability promotes coexistence in lottery competitive systems. The American Naturalist, 117(6), 923-943.
+
+
+
+
