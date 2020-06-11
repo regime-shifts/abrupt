@@ -1,6 +1,7 @@
 # abrupt
 
 <!-- badges: start -->
+[![R build status](https://github.com/regime-shifts/abrupt/workflows/R-CMD-check/badge.svg)](https://github.com/regime-shifts/abrupt/actions)
 <!-- badges: end -->
 
 Methods for detecting abrupt change in temporal, spatial, and spatiotemporal data series.
