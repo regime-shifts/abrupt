@@ -28,7 +28,9 @@
     }
 
     ## arrange in a tibble
-    tibble(time = t, trend = trend)
+    out <- tibble(t = t, trend = trend)
+    class(out) <- c("linear_trend", "abrupt_driver", class(out))
+    out
 }
 
 ##' Simulate data from a linear trend model
@@ -68,6 +70,8 @@
 
     ## generate noisy values from trend
     out <- add_column(out, y = fun(nt, out$trend))
+    class(out) <- c("simulate_linear_trend", "simulate_driver",
+                    "linear_trend", "abrupt_driver", class(out))
     attr(out, "rng_state") <- rng_state
     out
 }
