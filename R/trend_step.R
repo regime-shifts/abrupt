@@ -77,6 +77,7 @@
 ##' 
 ##' @importFrom stats approx
 ##' @importFrom tibble add_column
+##' @importFrom stats rnorm
 ##'
 ##' @export
 ##'

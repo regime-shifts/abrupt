@@ -46,7 +46,7 @@
 ##' @param ... additional arguments that will be passed to
 ##'   `sampling_distribution`.
 ##' 
-##' @importFrom stats approx
+##' @importFrom stats approx rnorm
 ##' @importFrom tibble add_column
 `simulate_linear_trend` <- function(t, start_value = 0, end_value = 1,
                                     sampling_distribution = NULL, seed = NULL,
