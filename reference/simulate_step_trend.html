@@ -180,9 +180,10 @@ is supplied, is <code><a href='https://rdrr.io/r/stats/Normal.html'>stats::rnorm
 #&gt; </span><span style='color: #555555;'> 9</span><span>     9     2  2.58
 #&gt; </span><span style='color: #555555;'>10</span><span>    10     2  1.69
 #&gt; </span><span style='color: #555555;'># ... with 90 more rows</span><span></div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"ggplot2"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in library("ggplot2"): there is no package called ‘ggplot2’</span></div><div class='input'><span class='fu'>ggplot</span>(<span class='no'>sims</span>, <span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>time</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>)) +
-  <span class='fu'>geom_point</span>() +
-  <span class='fu'>geom_step</span>(<span class='fu'>aes</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>trend</span>))</div><div class='output co'>#&gt; <span class='error'>Error in ggplot(sims, aes(x = time, y = y)): could not find function "ggplot"</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(<span class='no'>op</span>)</div></span></pre>
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='st'>"ggplot2"</span>)
+<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>(<span class='no'>sims</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>time</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>)) +
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>() +
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_step</a></span>(<span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>trend</span>))</div><div class='img'><img src='simulate_step_trend-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/options.html'>options</a></span>(<span class='no'>op</span>)</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
