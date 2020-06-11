@@ -28,7 +28,7 @@ sims <- step_trend(1:100, change_points = c(25, 75), means = c(2, 8, 4))
 sims
 
 library("ggplot2")
-ggplot(sims, aes(x = t y = trend)) +
+ggplot(sims, aes(x = t, y = trend)) +
   geom_step()
 \dontshow{options(op)}
 }
