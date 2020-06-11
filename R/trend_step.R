@@ -8,6 +8,13 @@
 ##' @importFrom tibble tibble
 ##' @importFrom stats approx
 ##'
+##' @examples
+##' \dontshow{
+##' set.seed(1)
+##' op <- options(digits = 3, cli.unicode = FALSE)
+##' }
+##' step_trend(1:100, change_points = c(25, 75), means = c(2, 8, 4))
+##' \dontshow{options(op)}
 `step_trend` <- function(t, change_points, means, ...) {
     ## is t in order?
     if (is.unsorted(t)) {
