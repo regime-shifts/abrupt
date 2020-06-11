@@ -26,5 +26,6 @@ Imports:
     deSolve,
     minpack.lm
 Suggests: 
-    testthat
+    testthat,
+    ggplot2
 
