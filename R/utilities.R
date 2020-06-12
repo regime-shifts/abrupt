@@ -5,6 +5,8 @@
 ##' @return A list containing `seed`, the supplied seed, `initial_state`,
 ##'   the initial state of the RNG before the seed was set, and
 ##'   `kind`, the type of RNG used, as returned by [base::RNGkind()].
+##'
+##' @importFrom stats runif
 `seed_rng` <- function(seed = NULL) {
     ## initialise seed if not set in session
     if (!exists(".Random.seed", envir = .GlobalEnv, inherits = FALSE)) {

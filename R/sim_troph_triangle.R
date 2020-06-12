@@ -1,14 +1,14 @@
 ##' Trophic triangle model
 ##' 
-##' @param time_out 
-##' @param n_steps 
-##' @param measurement_sigma 
-##' @param harvest_start 
-##' @param harvest_end 
-##' @param harvest_shape 
-##' @param pred_overlap_start 
-##' @param pred_overlap_end 
-##' @param pred_overlap_shape
+##' @param time_out ToDo
+##' @param n_steps ToDo
+##' @param measurement_sigma ToDo
+##' @param harvest_start ToDo
+##' @param harvest_end ToDo
+##' @param harvest_shape ToDo
+##' @param pred_overlap_start ToDo
+##' @param pred_overlap_end ToDo
+##' @param pred_overlap_shape ToDo
 ##'
 ##' @author Eric J. Pedersen
 ##' 
@@ -17,6 +17,7 @@
 ##' @importFrom deSolve ode
 ##' @importFrom dplyr mutate left_join
 ##' @importFrom tidyr gather
+##' @importFrom stats rlnorm
 sim_troph_triangle <- function(time_out, 
                                n_steps, 
                                measurement_sigma = c(0,0,0),

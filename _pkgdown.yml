@@ -1,0 +1,9 @@
+url: https://regime-shifts.github.io/abrupt/
+
+home:
+  title: Methods for detecting abrupt change in temporal, spatial, and spatiotemporal data series
+  description: A consistent tidy interface to methods and models for detecting aburpt change and regime shifts in temporal, spatial, and spatiotemporal data series.
+
+template:
+  params:
+    bootswatch: simplex
