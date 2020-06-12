@@ -133,32 +133,36 @@ calc_hgam_metrics.gam <- function(object,
     deriv1 <- as.data.frame(deriv1)
     colnames(deriv1) <- paste0("sim", 1:n_posterior_sims)
     deriv1 <- dplyr::bind_cols(simplified_data, deriv1)
-    deriv1 <- tidyr::gather(deriv1,key = sim, value = deriv1,starts_with("sim"))
+    deriv1 <- tidyr::gather(deriv1,key = "sim", 
+                            value = "deriv1",
+                            tidyselect::starts_with("sim"))
     
     deriv2 <- calc_deriv2(pred_adj,pred_adj_before, pred_adj_after,delta)
     deriv2 <- as.data.frame(deriv2)
     colnames(deriv2) <- paste0("sim", 1:n_posterior_sims)
     deriv2 <- dplyr::bind_cols(simplified_data, deriv2)
-    deriv2 <- tidyr::gather(deriv2,key = sim, value = deriv2,starts_with("sim"))
+    deriv2 <- tidyr::gather(deriv2,key = "sim", 
+                            value = "deriv2",
+                            tidyselect::starts_with("sim"))
     
     
     current_metric <- dplyr::left_join(deriv1, deriv2)
     current_metric <- ungroup(current_metric)
     current_metric <- dplyr::group_by(current_metric,
-                                      sim,
+                                      .data[["sim"]],
                                       .data[[time_var]]
                                       )
     
     
     if(stringr::str_detect(i, "sd")){
       current_metric <- dplyr::summarize(current_metric, 
-                                         metric = sd(deriv1))
+                                         metric = sd(.data[["deriv1"]]))
     } else if(stringr::str_detect(i, "mean")){
       current_metric <- dplyr::summarize(current_metric, 
-                                         metric = mean(deriv1))
+                                         metric = mean(.data[["deriv1"]]))
     } else {
       current_metric <- dplyr::summarize(current_metric, 
-                                         metric = calc_fisher_instant(deriv1, deriv2))
+                                         metric = calc_fisher_instant(.data[["deriv1"]], .data[["deriv2"]]))
     }
     
     if(return_val =="summary"){
@@ -166,10 +170,10 @@ calc_hgam_metrics.gam <- function(object,
       current_metric <- dplyr::group_by(current_metric, 
                                         .data[[time_var]])
       current_metric <- dplyr::summarize(current_metric,
-                                         metric_median = median(metric),
-                                         metric_lower = quantile(metric,
+                                         metric_median = median(.data[["metric"]]),
+                                         metric_lower = quantile(.data[["metric"]],
                                                                  probs = CI_alpha/2),
-                                         metric_upper = quantile(metric,
+                                         metric_upper = quantile(.data[["metric"]],
                                                                  probs = 1-CI_alpha/2))
     }
     
