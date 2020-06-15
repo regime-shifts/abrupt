@@ -1,10 +1,10 @@
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
     branches:
-      - master
+      - main
 
 name: R-CMD-check
 
@@ -13,7 +13,7 @@ jobs:
     runs-on: macOS-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: r-lib/actions/setup-r@master
+      - uses: r-lib/actions/setup-r@main
       - name: Install dependencies
         run: |
           install.packages(c("remotes", "rcmdcheck"))
