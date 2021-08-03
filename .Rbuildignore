@@ -1,4 +1,6 @@
 ^LICENSE\.md$
 ^\.github$
-^.*\.Rproj$
-^\.Rproj\.user$
+^\code-for-inclusion$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

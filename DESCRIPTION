@@ -2,11 +2,16 @@ Package: abrupt
 Title: Methods for detecting abrupt change in temporal, spatial, and spatiotemporal data series
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Gavin",
-           family = "Simpson",
-           role = c("aut", "cre"),
-           email = "ucfagls@example.com",
-           comment = c(ORCID = "0000-0002-9084-8413"))
+    c(person(given = "Gavin",
+             family = "Simpson",
+             role = c("aut", "cre"),
+             email = "ucfagls@gmail.com",
+             comment = c(ORCID = "0000-0002-9084-8413")),
+      person(given = "Eric",
+             family = "Pedersen",
+             role = c("aut"),
+             email = "eric@example.com", # FIXME
+             comment = c(ORCID = "0000-0000-0000-0000")))
 Description: A consistent tidy interface to methods and models for detecting aburpt change and regime shifts in temporal, spatial, and spatiotemporal data series.
 License: MIT + file LICENSE
 Encoding: UTF-8
@@ -15,6 +20,12 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
 Imports:
     stats,
-    tibble
+    tibble,
+    tidyr,
+    dplyr,
+    deSolve,
+    minpack.lm
 Suggests: 
-    testthat
+    testthat,
+    ggplot2
+

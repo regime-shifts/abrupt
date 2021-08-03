@@ -28,7 +28,9 @@
     }
 
     ## arrange in a tibble
-    tibble(time = t, trend = trend)
+    out <- tibble(t = t, trend = trend)
+    class(out) <- c("linear_trend", "abrupt_driver", class(out))
+    out
 }
 
 ##' Simulate data from a linear trend model
@@ -40,10 +42,11 @@
 ##'   which takes as it's first argument the number of observations to sample.
 ##'   The second argument should be the expected value. The default, if nothing
 ##'   is supplied, is [stats::rnorm()].
+##' @param seed numeric; a seed for the simulation.
 ##' @param ... additional arguments that will be passed to
 ##'   `sampling_distribution`.
 ##' 
-##' @importFrom stats approx
+##' @importFrom stats approx rnorm
 ##' @importFrom tibble add_column
 `simulate_linear_trend` <- function(t, start_value = 0, end_value = 1,
                                     sampling_distribution = NULL, seed = NULL,
@@ -67,6 +70,8 @@
 
     ## generate noisy values from trend
     out <- add_column(out, y = fun(nt, out$trend))
+    class(out) <- c("simulate_linear_trend", "simulate_driver",
+                    "linear_trend", "abrupt_driver", class(out))
     attr(out, "rng_state") <- rng_state
     out
 }
