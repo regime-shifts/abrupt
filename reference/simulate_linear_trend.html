@@ -45,6 +45,8 @@
 
 
 
+
+
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
@@ -56,9 +58,15 @@
 
 
 
+  
+
+  
+
   </head>
 
   <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -79,12 +87,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li>
@@ -115,14 +117,14 @@
     <p>Simulate data from a linear trend model</p>
     </div>
 
-    <pre class="usage"><span class='fu'>simulate_linear_trend</span>(
-  <span class='no'>t</span>,
-  <span class='kw'>start_value</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>end_value</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>sampling_distribution</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>
-)</pre>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>simulate_linear_trend</span><span class='op'>(</span>
+  <span class='va'>t</span>,
+  start_value <span class='op'>=</span> <span class='fl'>0</span>,
+  end_value <span class='op'>=</span> <span class='fl'>1</span>,
+  sampling_distribution <span class='op'>=</span> <span class='cn'>NULL</span>,
+  seed <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></code></pre></div>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -166,11 +168,11 @@ is supplied, is <code><a href='https://rdrr.io/r/stats/Normal.html'>stats::rnorm
 
       <footer>
       <div class="copyright">
-  <p>Developed by Gavin Simpson, Eric Pedersen.</p>
+  <p><p>Developed by Gavin Simpson, Eric Pedersen.</p></p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p></p>
 </div>
 
       </footer>
@@ -178,6 +180,8 @@ is supplied, is <code><a href='https://rdrr.io/r/stats/Normal.html'>stats::rnorm
 
   
 
+
+  
 
   </body>
 </html>

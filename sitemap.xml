@@ -1,27 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://regime-shifts.github.io/abrupt//index.html</loc>
+    <loc>https://regime-shifts.github.io/abrupt/404.html</loc>
   </url>
   <url>
-    <loc>https://regime-shifts.github.io/abrupt//reference/linear_trend.html</loc>
+    <loc>https://regime-shifts.github.io/abrupt/CODE_OF_CONDUCT.html</loc>
   </url>
   <url>
-    <loc>https://regime-shifts.github.io/abrupt//reference/rickerfit.html</loc>
+    <loc>https://regime-shifts.github.io/abrupt/CONTRIBUTING.html</loc>
   </url>
   <url>
-    <loc>https://regime-shifts.github.io/abrupt//reference/seed_rng.html</loc>
+    <loc>https://regime-shifts.github.io/abrupt/LICENSE-text.html</loc>
   </url>
   <url>
-    <loc>https://regime-shifts.github.io/abrupt//reference/sim_troph_triangle.html</loc>
+    <loc>https://regime-shifts.github.io/abrupt/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://regime-shifts.github.io/abrupt//reference/simulate_linear_trend.html</loc>
+    <loc>https://regime-shifts.github.io/abrupt/authors.html</loc>
   </url>
   <url>
-    <loc>https://regime-shifts.github.io/abrupt//reference/simulate_step_trend.html</loc>
+    <loc>https://regime-shifts.github.io/abrupt/index.html</loc>
   </url>
   <url>
-    <loc>https://regime-shifts.github.io/abrupt//reference/step_trend.html</loc>
+    <loc>https://regime-shifts.github.io/abrupt/news/index.html</loc>
+  </url>
+  <url>
+    <loc>https://regime-shifts.github.io/abrupt/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>https://regime-shifts.github.io/abrupt/reference/linear_trend.html</loc>
+  </url>
+  <url>
+    <loc>https://regime-shifts.github.io/abrupt/reference/rickerfit.html</loc>
+  </url>
+  <url>
+    <loc>https://regime-shifts.github.io/abrupt/reference/seed_rng.html</loc>
+  </url>
+  <url>
+    <loc>https://regime-shifts.github.io/abrupt/reference/sim_troph_triangle.html</loc>
+  </url>
+  <url>
+    <loc>https://regime-shifts.github.io/abrupt/reference/simulate_linear_trend.html</loc>
+  </url>
+  <url>
+    <loc>https://regime-shifts.github.io/abrupt/reference/simulate_step_trend.html</loc>
+  </url>
+  <url>
+    <loc>https://regime-shifts.github.io/abrupt/reference/step_trend.html</loc>
   </url>
 </urlset>
