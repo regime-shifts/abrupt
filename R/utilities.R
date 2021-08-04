@@ -27,3 +27,15 @@
     ## return the seed and other info as a list
     list(seed = seed, initial_state = initial_state, kind = rnd_kind)
 }
+
+
+`calc_1st_deriv` <-  function(fit_before, fit_after,delta) {
+    (fit_after-fit_before)/(2*delta)
+    
+}
+
+`calc_2nd_deriv` <-  function(fit, fit_before, fit_after,delta) {
+    (fit_before + fit_after-2*fit)/delta^2
+}
+
+
