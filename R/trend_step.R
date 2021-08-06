@@ -1,34 +1,34 @@
-##' Step change trend response model
-##'
-##' @param t numeric; vector of time points. 
-##' @param change_points numeric; vector of change points, within `t`
-##' @param means numeric; vector of means for the regimes implied by
-##'   `change_points`. Must be of length `length(change_points) + 1`.
-##' @param ... other arguments. Ignored here.
-##' 
-##' @importFrom tibble tibble
-##' @importFrom stats approx
-##'
-##' @export
-##' 
-##' @examples
-##' \dontshow{
-##' set.seed(1)
-##' op <- options(digits = 3, cli.unicode = FALSE)
-##' }
-##' sims <- step_trend(1:100, change_points = c(25, 75), means = c(2, 8, 4))
-##' sims
-##'
-##' library("ggplot2")
-##' ggplot(sims, aes(x = t, y = trend)) +
-##'   geom_step()
-##' \dontshow{options(op)}
+#' Step change trend response model
+#'
+#' @param t numeric; vector of time points.
+#' @param change_points numeric; vector of change points, within `t`
+#' @param means numeric; vector of means for the regimes implied by
+#'   `change_points`. Must be of length `length(change_points) + 1`.
+#' @param ... other arguments. Ignored here.
+#'
+#' @importFrom tibble tibble
+#' @importFrom stats approx
+#'
+#' @export
+#'
+#' @examples
+#' \dontshow{
+#' set.seed(1)
+#' op <- options(digits = 3, cli.unicode = FALSE)
+#' }
+#' sims <- step_trend(1:100, change_points = c(25, 75), means = c(2, 8, 4))
+#' sims
+#'
+#' library("ggplot2")
+#' ggplot(sims, aes(x = t, y = trend)) +
+#'   geom_step()
+#' \dontshow{options(op)}
 `step_trend` <- function(t, change_points, means, ...) {
     ## is t in order?
     if (is.unsorted(t)) {
         stop("'t' must be in increasing order.")
     }
-    
+
     nt <- length(t) # length of series
     n_pts <- length(change_points)
     n_mns <- length(means)
@@ -45,9 +45,9 @@
         trend[ind] <- means[i]
         start <- change_points[i]
     }
-    
+
     ## linear sequence from start to end of the length of t
-    ## trend <- seq(start_value, end_value, length.out = nt)
+    ## i.e. `trend <- seq(start_value, end_value, length.out = nt)`
 
     ## if t is irregular, interpolate truth to the irregular t points
     irregular <- length(unique(diff(t))) > 1L
@@ -63,38 +63,38 @@
     out
 }
 
-##' Simulate data from a linear trend model
-##'
-##' @param sampling_distribution function; a random number generating function,
-##'   which takes as it's first argument the number of observations to sample.
-##'   The second argument should be the expected value. The default, if nothing
-##'   is supplied, is [stats::rnorm()].
-##' @param seed numeric; a seed for the simulation.
-##' @param ... additional arguments that will be passed to
-##'   `sampling_distribution`.
-##'
-##' @inheritParams step_trend
-##' 
-##' @importFrom stats approx
-##' @importFrom tibble add_column
-##' @importFrom stats rnorm
-##'
-##' @export
-##'
-##' @examples
-##' \dontshow{
-##' set.seed(1)
-##' op <- options(digits = 3, cli.unicode = FALSE)
-##' }
-##' sims <- simulate_step_trend(1:100, change_points = c(25, 75),
-##'                             means = c(2, 8, 4))
-##' sims
-##'
-##' library("ggplot2")
-##' ggplot(sims, aes(x = t, y = y)) +
-##'   geom_point() +
-##'   geom_step(aes(y = trend))
-##' \dontshow{options(op)}
+#' Simulate data from a linear trend model
+#'
+#' @param sampling_distribution function; a random number generating function,
+#'   which takes as it's first argument the number of observations to sample.
+#'   The second argument should be the expected value. The default, if nothing
+#'   is supplied, is [stats::rnorm()].
+#' @param seed numeric; a seed for the simulation.
+#' @param ... additional arguments that will be passed to
+#'   `sampling_distribution`.
+#'
+#' @inheritParams step_trend
+#' 
+#' @importFrom stats approx
+#' @importFrom tibble add_column
+#' @importFrom stats rnorm
+#'
+#' @export
+#'
+#' @examples
+#' \dontshow{
+#' set.seed(1)
+#' op <- options(digits = 3, cli.unicode = FALSE)
+#' }
+#' sims <- simulate_step_trend(1:100, change_points = c(25, 75),
+#'                             means = c(2, 8, 4))
+#' sims
+#'
+#' library("ggplot2")
+#' ggplot(sims, aes(x = t, y = y)) +
+#'   geom_point() +
+#'   geom_step(aes(y = trend))
+#' \dontshow{options(op)}
 `simulate_step_trend` <- function(t, change_points, means,
                                   sampling_distribution = NULL, seed = NULL,
                                   ...) {
@@ -109,7 +109,7 @@
     } else {
         match.fun(sampling_distribution)
     }
-    
+
     nt <- length(t) # length of series
 
     ## generate linear trend
