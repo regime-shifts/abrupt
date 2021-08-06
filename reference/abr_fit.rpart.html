@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Trophic triangle model — sim_troph_triangle • abrupt</title>
+<title>Estimate change points using a regression tree — abr_fit.rpart • abrupt</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Trophic triangle model — sim_troph_triangle" />
-<meta property="og:description" content="Trophic triangle model" />
+<meta property="og:title" content="Estimate change points using a regression tree — abr_fit.rpart" />
+<meta property="og:description" content="Estimate change points using a regression tree" />
 
 
 
@@ -108,69 +108,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Trophic triangle model</h1>
+    <h1>Estimate change points using a regression tree</h1>
     
-    <div class="hidden name"><code>sim_troph_triangle.Rd</code></div>
+    <div class="hidden name"><code>abr_fit.rpart.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Trophic triangle model</p>
+    <p>Estimate change points using a regression tree</p>
     </div>
 
-    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>sim_troph_triangle</span><span class='op'>(</span>
-  time_out <span class='op'>=</span> <span class='fl'>100</span>,
-  n_steps <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>100</span><span class='op'>)</span>,
-  measurement_sigma <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>,
-  harvest_rates <span class='op'>=</span> <span class='fu'>create_driver_function</span><span class='op'>(</span>change_times <span class='op'>=</span> <span class='fl'>50</span>, parm_values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0.25</span><span class='op'>)</span>,
-    interpolation <span class='op'>=</span> <span class='st'>"constant"</span><span class='op'>)</span>,
-  pred_overlap <span class='op'>=</span> <span class='fu'>create_driver_function</span><span class='op'>(</span>change_times <span class='op'>=</span> <span class='fl'>50</span>, parm_values <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>,
-    interpolation <span class='op'>=</span> <span class='st'>"constant"</span><span class='op'>)</span>
-<span class='op'>)</span></code></pre></div>
+    <div class="ref-usage sourceCode"><pre class='sourceCode r'><code><span class='fu'>abr_fit.rpart</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span></code></pre></div>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>time_out</th>
-      <td><p>ToDo</p></td>
-    </tr>
-    <tr>
-      <th>n_steps</th>
-      <td><p>ToDo</p></td>
-    </tr>
-    <tr>
-      <th>measurement_sigma</th>
-      <td><p>ToDo</p></td>
-    </tr>
-    <tr>
-      <th>harvest_start</th>
-      <td><p>ToDo</p></td>
-    </tr>
-    <tr>
-      <th>harvest_end</th>
-      <td><p>ToDo</p></td>
-    </tr>
-    <tr>
-      <th>harvest_shape</th>
-      <td><p>ToDo</p></td>
-    </tr>
-    <tr>
-      <th>pred_overlap_start</th>
-      <td><p>ToDo</p></td>
-    </tr>
-    <tr>
-      <th>pred_overlap_end</th>
-      <td><p>ToDo</p></td>
-    </tr>
-    <tr>
-      <th>pred_overlap_shape</th>
-      <td><p>ToDo</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p>Eric J. Pedersen</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
