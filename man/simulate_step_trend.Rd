@@ -24,7 +24,7 @@ simulate_step_trend(
 \item{sampling_distribution}{function; a random number generating function,
 which takes as it's first argument the number of observations to sample.
 The second argument should be the expected value. The default, if nothing
-is supplied, is \code{\link[stats:rnorm]{stats::rnorm()}}.}
+is supplied, is \code{\link[stats:Normal]{stats::rnorm()}}.}
 
 \item{seed}{numeric; a seed for the simulation.}
 

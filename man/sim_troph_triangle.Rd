@@ -5,15 +5,13 @@
 \title{Trophic triangle model}
 \usage{
 sim_troph_triangle(
-  time_out,
-  n_steps,
+  time_out = 100,
+  n_steps = c(100),
   measurement_sigma = c(0, 0, 0),
-  harvest_start = 0,
-  harvest_end = 0.25,
-  harvest_shape = 0,
-  pred_overlap_start = 1,
-  pred_overlap_end = 1,
-  pred_overlap_shape = 0
+  harvest_rates = create_driver_function(change_times = 50, parm_values = c(0, 0.25),
+    interpolation = "constant"),
+  pred_overlap = create_driver_function(change_times = 50, parm_values = c(1, 1),
+    interpolation = "constant")
 )
 }
 \arguments{

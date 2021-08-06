@@ -7,12 +7,12 @@
 seed_rng(seed = NULL)
 }
 \arguments{
-\item{seed}{numeric seed for RNG. See \code{\link[base:set.seed]{base::set.seed()}}.}
+\item{seed}{numeric seed for RNG. See \code{\link[base:Random]{base::set.seed()}}.}
 }
 \value{
 A list containing \code{seed}, the supplied seed, \code{initial_state},
 the initial state of the RNG before the seed was set, and
-\code{kind}, the type of RNG used, as returned by \code{\link[base:RNGkind]{base::RNGkind()}}.
+\code{kind}, the type of RNG used, as returned by \code{\link[base:Random]{base::RNGkind()}}.
 }
 \description{
 Seed the RNG state possibly with a user supplied seed
