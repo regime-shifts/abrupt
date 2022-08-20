@@ -4,13 +4,13 @@
     # fail early if rpart and partykit are not avilable
     pkgs <- c("rpart", "partykit")
     load_required_packages(pkgs)
-    fit <- rpart::rpart(y ~ t, data = data)
+    fit <- rpart::rpart(y ~ t, data = data, model = TRUE)
     fit <- partykit::as.party(fit)
     fit
 }
 
 #' @importFrom purrr map_lgl
-#' @importFrom glue glue_collapse
+#' @importFrom glue glue glue_collapse
 `load_required_packages` <- function(packages, quietly = TRUE, ...) {
     loaded <- map_lgl(packages, load_required_package, quietly = quietly, ...)
     # report which failed

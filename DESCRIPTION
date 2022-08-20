@@ -21,6 +21,7 @@ RoxygenNote: 7.1.1
 Imports:
     stats,
     tibble,
+    Formula,
     tidyr,
     dplyr,
     purrr,
