@@ -52,7 +52,8 @@
 # cyclic  - mean, amplitude, freq: output mean + (amplitude * sin(freq*t*2*pi)),
 #         - min freq is 2
 # auto_regressive mean rho t_1 sigma
-
+#
+# Details for autoregressive:
 # t <- 1:100
 # t_1 <- 0
 # mean <- 10
