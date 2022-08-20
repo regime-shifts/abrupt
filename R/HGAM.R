@@ -92,7 +92,7 @@
                             nsims = NULL,
                             transform = NULL,
                             aggregate = NULL,
-                            CI = FALSE){
+                            threshold = NULL){
   
   
   t_range <- range(abr_fitobj$data$time)
@@ -130,7 +130,15 @@
   if(is.null(transform)){
     if(is.null(abr_fitobj$break_args$transform)){
       transform  <- identity
-    } else nsims <- abr_fitobj$break_args$transform
+    } else transform <- abr_fitobj$break_args$transform
+  }
+  
+  
+  
+  if(is.null(threshold)){
+    if(is.null(abr_fitobj$break_args$threshold)){
+      threshold  <- 0
+    } else threshold <- abr_fitobj$break_args$threshold
   }
   
   type <- abr_fitobj$type
@@ -174,25 +182,21 @@
   coef_sims <- t(mgcv::rmvn(n = nsims,mu = coef_means, V = vcv))
   deriv_fit <- lp_deriv%*%coef_sims
   
-  breaks_ci <- t(apply(deriv_fit,MARGIN = 1,FUN = quantile,probs = c(0.025,0.975)) )
-  breaks_ci <- as.data.frame(breaks_ci)
-  names(breaks_ci) <- c("ci_lower","ci_upper")
-  breaks_ci <- cbind(pred_at, breaks_ci)
-  # breaks <- list()
-  # 
-  # is_break <- FALSE
-  # sign  <- "zero"
-  # for(i in 1:nrow(pred_at)){
-  #   if(breaks_ci[i,1]>0){
-  #     if(!is_break){
-  #       break_start <- pred_at$time[i]
-  #       sign <- "pos"
-  #       is_break <- TRUE
-  #     }
-  #     if(is_break&sign=="neg"){
-  #       
-  #   breaks 
-  breaks_ci
+  if(length(threshold)==2){
+    under_threshold <- rowMeans(deriv_fit< (threshold[1]))
+    over_threshold  <- rowmeans(deriv_fit> (threshold[2]))
+  }else {
+    under_threshold <- rowMeans(deriv_fit< -abs(threshold))
+    over_threshold  <- rowMeans(deriv_fit> abs(threshold))
+  }
+  #currently assuming two-sided intervals; need to add an option to allow for
+  #one-sided intervals 
+  pred_at$pos_change <- over_threshold
+  pred_at$neg_change <- under_threshold
+  pred_at$change_prob <- pmin(1-over_threshold, 1-under_threshold)
+  
+  
+  pred_at
 }
   
 
